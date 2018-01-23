@@ -2,15 +2,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 
 // MongoDB
 mongoose
-	.connect(
-		'mongodb://matt:password@ds111258.mlab.com:11258/matopher-restful-api'
-	)
-	.catch(function(error) {
-		console.log('Error connecting to Mongoose');
-	});
+  .connect(
+    `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${
+      process.env.MONGO_HOST
+    }`
+  )
+  .catch(function(error) {
+    console.log('Error connecting to Mongoose');
+  });
 
 // Express
 const app = express();
