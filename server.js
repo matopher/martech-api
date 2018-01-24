@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
+const port = process.env.PORT || 3000;
+
 // MongoDB
 mongoose
   .connect(
@@ -24,5 +26,5 @@ app.use(bodyParser.json());
 app.use('/api', require('./routes/api'));
 
 // Start server
-app.listen(3000);
+app.listen(port);
 console.log('api is running on port 3000');
