@@ -14,7 +14,7 @@ mongoose
     }`
   )
   .catch(function(error) {
-    console.log('Error connecting to Mongoose');
+    console.log('Error connecting to Mongoose: ', error);
   });
 
 // Express
@@ -27,4 +27,4 @@ app.use('/api', require('./routes/api'));
 
 // Start server
 app.listen(port);
-console.log('api is running on port 3000');
+console.log('api is running on port ' + port);

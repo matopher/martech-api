@@ -3,11 +3,11 @@ const express = require('express');
 const router = express.Router();
 
 // Models
-const Product = require('../models/product');
+const Companies = require('../models/companies');
 
 // Routes
-Product.methods(['get', 'put', 'post', 'delete']);
-Product.register(router, '/products');
+Companies.methods(['get', 'put', 'post', 'delete']);
+Companies.register(router, '/companies');
 
 // Return router
 module.exports = router;
