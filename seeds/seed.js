@@ -1,11 +1,17 @@
 #!/usr/bin/env node
 const csv = require('csvtojson');
+const mongoose = require('mongoose');
+const Companies = require('../models/companies');
 
 console.log('seeds 🙌');
 
 function insertRecordIntoDatabase(record) {
-  console.log('handling record');
   // Insert into mongo
+  const company = new Companies({ record });
+  console.log(company);
+  company.save(function(err, company) {
+    if (err) return console.error(err);
+  });
 }
 
 // Read the CSV File
@@ -22,4 +28,5 @@ csv()
 
     // Insert JSON into Database
     records.forEach(record => insertRecordIntoDatabase(record));
+    console.log('done inserting');
   });
