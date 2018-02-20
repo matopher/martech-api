@@ -2,16 +2,11 @@
 const csv = require('csvtojson');
 const mongoose = require('mongoose');
 const Companies = require('../models/companies');
-require('dotenv').config();
+const connectMongoDB = require('../db/connect');
 
 console.log('seeds 🙌');
 
-// Connect to MongoDB
-mongoose.connect(
-  `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${
-    process.env.MONGO_HOST
-  }`
-);
+connectMongoDB();
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {

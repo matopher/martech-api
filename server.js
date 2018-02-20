@@ -1,21 +1,12 @@
 // Dependencies
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-require('dotenv').config();
 
-const port = process.env.PORT || 3000;
+const environment = require('./config');
+const { port } = environment;
+const connectMongoDB = require('./db/connect');
 
-// MongoDB
-mongoose
-  .connect(
-    `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${
-      process.env.MONGO_HOST
-    }`
-  )
-  .catch(function(error) {
-    console.log('Error connecting to Mongoose: ', error);
-  });
+connectMongoDB();
 
 // Express
 const app = express();
