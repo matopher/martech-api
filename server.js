@@ -1,6 +1,7 @@
 // Dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 
 const environment = require('./config');
 const { port } = environment;
@@ -10,6 +11,7 @@ connectMongoDB();
 
 // Express
 const app = express();
+app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
