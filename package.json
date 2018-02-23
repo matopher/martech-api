@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node ./test/runtests",
     "dev": "nodemon server.js",
-    "seeds": "node seeds/seed.js"
+    "seeds": "node seeds/seed.js",
+    "dump": "node seeds/seed.js --delete"
   },
   "author": "",
   "license": "ISC",
