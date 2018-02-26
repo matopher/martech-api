@@ -14,6 +14,6 @@ describe('GET /companies', function() {
     });
   });
   it('should return a collection of companies', function() {
-    expect(results.length).to.equal(10414);
+    expect(results.length).to.equal(5207);
   });
 });

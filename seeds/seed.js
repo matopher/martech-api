@@ -14,7 +14,7 @@ db.once('open', function() {
   console.log(`mongodb seed connection opened`);
 });
 
-function insertRecordIntoDatabase(record) {
+async function insertRecordIntoDatabase(record) {
   // Insert into mongo
   const company = new Companies({
     category: record.category,
@@ -22,7 +22,7 @@ function insertRecordIntoDatabase(record) {
     company: record.company,
     websiteDomain: record.websiteDomain
   });
-  company.save(function(err, company) {
+  await company.save(function(err, company) {
     if (err) return console.error(err);
     console.log(company);
   });
@@ -32,7 +32,7 @@ async function loadData() {
   // Read the CSV File
   const records = [];
   const csvFilePath = './seeds/martech-landscape.csv';
-  csv()
+  await csv()
     .fromFile(csvFilePath)
     .on('json', jsonObj => {
       // Pushes each CSV row to in memory array of records
@@ -43,7 +43,6 @@ async function loadData() {
 
       // Insert JSON into Database
       records.forEach(record => insertRecordIntoDatabase(record));
-      console.log('done inserting');
     });
 }
 

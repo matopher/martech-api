@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "pretest": "npm run dump && npm run seeds",
     "test": "node ./test/runtests",
     "dev": "nodemon server.js",
     "seeds": "node seeds/seed.js",
