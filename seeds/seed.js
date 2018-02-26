@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const csv = require('csvtojson');
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 const Companies = require('../models/companies');
 const connectMongoDB = require('../db/connect');
 
@@ -13,6 +14,12 @@ db.once('open', function() {
   // we're connected!
   console.log(`mongodb seed connection opened`);
 });
+
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
+  }
+}
 
 async function insertRecordIntoDatabase(record) {
   // Insert into mongo
@@ -29,21 +36,35 @@ async function insertRecordIntoDatabase(record) {
 }
 
 async function loadData() {
-  // Read the CSV File
   const records = [];
   const csvFilePath = './seeds/martech-landscape.csv';
-  await csv()
-    .fromFile(csvFilePath)
-    .on('json', jsonObj => {
-      // Pushes each CSV row to in memory array of records
-      records.push(jsonObj);
-    })
-    .on('done', error => {
-      console.log('end', error);
+  try {
+    await csv()
+      .fromFile(csvFilePath)
+      .on('json', jsonObj => {
+        // Pushes each CSV row to in memory array of records
+        records.push(jsonObj);
+      })
+      .on('done', error => {
+        console.log('end', error);
 
-      // Insert JSON into Database
-      records.forEach(record => insertRecordIntoDatabase(record));
-    });
+        // Insert JSON into Database
+        const insertAll = async () => {
+          await asyncForEach(records, async record => {
+            await insertRecordIntoDatabase(record);
+          });
+        };
+        insertAll();
+        // records.forEach(record => insertRecordIntoDatabase(record));
+      })
+      .on('done', error => {
+        console.log('ALL DONE NOW');
+      });
+  } catch (e) {
+    console.log(e);
+    process.exit();
+  }
+  // Read the CSV File
 }
 
 async function deleteData() {
