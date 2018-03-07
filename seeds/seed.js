@@ -10,7 +10,7 @@ console.log('seeds 🙌');
 connectMongoDB();
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+db.once('open', function () {
   // we're connected!
   console.log(`mongodb seed connection opened`);
 });
@@ -29,7 +29,7 @@ async function insertRecordIntoDatabase(record) {
     company: record.company,
     websiteDomain: record.websiteDomain
   });
-  await company.save(function(err, company) {
+  await company.save(function (err, company) {
     if (err) return console.error(err);
     console.log(company);
   });
@@ -37,7 +37,7 @@ async function insertRecordIntoDatabase(record) {
 
 async function loadData() {
   const records = [];
-  const csvFilePath = './seeds/martech-landscape.csv';
+  const csvFilePath = process.env.NODE_ENV === 'production' ? './seeds/martech-landscape.csv' : './seeds/test-companies.csv';
   try {
     await csv()
       .fromFile(csvFilePath)

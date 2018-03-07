@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
-const environment = require('./config');
+const environment = require('./config/keys');
 const { port } = environment;
 const connectMongoDB = require('./db/connect');
 

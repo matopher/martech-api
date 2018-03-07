@@ -1,9 +1,9 @@
 const request = require('request');
 
-describe('GET /companies', function() {
+describe('GET /companies', function () {
   let response, results;
-  beforeEach(function(done) {
-    request(`http://localhost:3000/api/companies`, function(
+  beforeEach(function (done) {
+    request(`http://localhost:3000/api/companies`, function (
       error,
       response,
       body
@@ -13,7 +13,7 @@ describe('GET /companies', function() {
       done(error);
     });
   });
-  it('should return a collection of companies', function() {
-    expect(results.length).to.equal(5207);
+  it('should return a collection of 10 companies', function () {
+    expect(results.length).to.equal(10);
   });
 });
