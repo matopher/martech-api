@@ -13,3 +13,8 @@ Delete sample data using `npm run dump`
 # Run Project
 
 Start the server using `npm run dev`
+
+# Run Tests
+
+1. Make sure you start the local MongoDB server by running `mongodb` in a new terminal session
+2. Run `npm test`
