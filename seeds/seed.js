@@ -27,7 +27,8 @@ async function insertRecordIntoDatabase(record) {
     category: record.category,
     subCategory: record.subCategory,
     company: record.company,
-    websiteDomain: record.websiteDomain
+    websiteDomain: record.websiteDomain,
+    logo: `//logo-core.clearbit.com/${record.websiteDomain}`
   });
   await company.save(function (err, company) {
     if (err) return console.error(err);

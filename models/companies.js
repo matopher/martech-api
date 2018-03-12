@@ -7,7 +7,8 @@ const companySchema = new mongoose.Schema({
   category: String,
   subCategory: String,
   company: String,
-  websiteDomain: String
+  websiteDomain: String,
+  logo: String
 });
 
 // Return model
